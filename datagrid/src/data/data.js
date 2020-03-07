@@ -6,10 +6,12 @@ const userFake = (index) => {
   return {
     id: 2321 + index,
     name: faker.name.findName(),
-    email: faker.internet.email(),
-    address: faker.address.streetAddress(),
-    bio: faker.lorem.sentence(),
-    image: faker.image.avatar()
+    job: faker.name.jobTitle(),
+    country: faker.address.country(),
+    city: faker.address.city(),
+    latitude: faker.address.latitude(),
+    longitude: faker.address.longitude(),
+    date: faker.date.between('1970-01-01', '2000-01-01')
   }
 };
 

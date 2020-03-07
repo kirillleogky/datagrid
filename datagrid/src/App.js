@@ -28,17 +28,54 @@ function App() {
           container
           className="table_title"
         >
-          <Grid item xs={3}>
-            <Box className="table_elem">Name</Box>
+          <Grid item xs={1}>
+            <Box className="title_elem">
+              Name
+              <Button className="table_btn">↓</Button>
+              <Button className="table_btn">↑</Button>
+            </Box>
           </Grid>
-          <Grid item xs={3}>
-            <Box className="table_elem">Email</Box>
+          <Grid item xs={1}>
+            <Box className="title_elem">
+              Job
+              <Button className="table_btn">↓</Button>
+              <Button className="table_btn">↑</Button>
+            </Box>
           </Grid>
-          <Grid item xs={3}>
-            <Box className="table_elem">Bio</Box>
+          <Grid item xs={1}>
+            <Box className="title_elem">
+              City
+              <Button className="table_btn">↓</Button>
+              <Button className="table_btn">↑</Button>
+            </Box>
           </Grid>
-          <Grid item xs={3}>
-            <Box className="table_elem">Address</Box>
+          <Grid item xs={1}>
+            <Box className="title_elem">
+              Country
+              <Button className="table_btn">↓</Button>
+              <Button className="table_btn">↑</Button>
+            </Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="title_elem">
+              Latitude
+              <Button className="table_btn">↓</Button>
+              <Button className="table_btn">↑</Button>
+            </Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="title_elem">
+              Longitude
+              <Button className="table_btn">↓</Button>
+              <Button className="table_btn">↑</Button>
+            </Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="title_elem">
+              Date
+              <Button className="table_btn">↓</Button>
+              <Button className="table_btn">↑</Button>
+            </Box>
           </Grid>
         </Grid>
         {Data.map((elem,index) =>
@@ -47,17 +84,29 @@ function App() {
             key={elem.id}
             className="table_row"
           >
-            <Grid item xs={3}>
-              <Box className="table_elem">{elem.name}</Box>
+            <Grid item xs={1}>
+              <Box className="table_elem name_elem">{elem.name}</Box>
             </Grid>
-            <Grid item xs={3}>
-              <Box className="table_elem">{elem.email}</Box>
+            <Grid item xs={1}>
+              <Box className="table_elem job_elem">{elem.job}</Box>
             </Grid>
-            <Grid item xs={3}>
-              <Box className="table_elem">{elem.bio}</Box>
+            <Grid item xs={1}>
+              <Box className="table_elem city_elem">{elem.city}</Box>
             </Grid>
-            <Grid item xs={3}>
-              <Box className="table_elem">{elem.address}</Box>
+            <Grid item xs={1}>
+              <Box className="table_elem country_elem">{elem.country}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem latitude_elem">{elem.latitude}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem longitude_elem">{elem.longitude}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              {console.log(elem.date === Data[0].date)}
+              <Box className="table_elem date_elem">
+                {`${elem.date.toLocaleString('en', { year: 'numeric', month: 'long', day: 'numeric'})}`}
+              </Box>
             </Grid>
           </Grid>
         )}
