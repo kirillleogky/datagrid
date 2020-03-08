@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react'
 import './App.css';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Data from './data/data';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux'
 
 
-function App() {
-  return (
+class App extends Component {
+  render() {
+    const { firstData, secondData } = this.props;
+    return (
     <Box className="App">
-      <h1 className="title">Fake Persons</h1>
+      <h1 className="title">{firstData.data} {secondData.data}</h1>
       <TextField
         id="filled-full-width"
         placeholder="Search by name"
@@ -112,7 +115,15 @@ function App() {
         )}
       </Grid>
     </Box>
-  );
+  )
+ };
 }
 
-export default App;
+const mapStateToProps = store => {
+  return {
+    firstData: store.firstData,
+    secondData: store.secondData,
+  }
+}
+
+export default connect(mapStateToProps)(App)
