@@ -1,128 +1,62 @@
 import React, { Component } from 'react'
 import './App.css';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Data from './data/data';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux'
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Search from './components/search/search';
+import Table from './components/table/table';
+import _ from 'lodash';
 
 class App extends Component {
+    constructor(props) {
+    super(props)
+    this.state = {
+      data: props.thirdData.data,
+      search: '',
+      sort: 'asc',  // 'desc'
+      sortField: '',
+      arrow: '↓'
+     }
+    }
+    onSort = sortField => {
+      const cloneData = this.state.data.concat();
+      const sort = this.state.sort === 'asc' ? 'desc' : 'asc';
+      const arrow = this.state.arrow === '↓' ? '↑' : '↓';
+      const data = _.orderBy(cloneData, sortField, sort);
+      this.setState({ data, sort, sortField, arrow })
+    }
   render() {
     const { firstData, secondData } = this.props;
+    // console.log(_.orderBy(thirdData.data, this.state.sortField, this.state.sort),this.state.data);
     return (
     <Box className="App">
       <h1 className="title">{firstData.data} {secondData.data}</h1>
-      <TextField
-        id="filled-full-width"
-        placeholder="Search by name"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="outlined"
+      <h3 className="title-info">The search will show any matching values. If there is no match, then all the data.</h3>
+      <h3 className="title-info">To sort, click on the title.</h3>
+      <Search />
+      <Table
+        info={this.state.data}
+        onSort={this.onSort}
+        sortField={this.state.sortField}
+        arrow={this.state.arrow}
       />
-      <Button variant="outlined">Default</Button>
-      <Grid
-        container
-        className="developer_block-time_feature time_feature_block"
-      >
-        <Grid
-          container
-          className="table_title"
-        >
-          <Grid item xs={1}>
-            <Box className="title_elem">
-              Name
-              <Button className="table_btn">↓</Button>
-              <Button className="table_btn">↑</Button>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="title_elem">
-              Job
-              <Button className="table_btn">↓</Button>
-              <Button className="table_btn">↑</Button>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="title_elem">
-              City
-              <Button className="table_btn">↓</Button>
-              <Button className="table_btn">↑</Button>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="title_elem">
-              Country
-              <Button className="table_btn">↓</Button>
-              <Button className="table_btn">↑</Button>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="title_elem">
-              Latitude
-              <Button className="table_btn">↓</Button>
-              <Button className="table_btn">↑</Button>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="title_elem">
-              Longitude
-              <Button className="table_btn">↓</Button>
-              <Button className="table_btn">↑</Button>
-            </Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="title_elem">
-              Date
-              <Button className="table_btn">↓</Button>
-              <Button className="table_btn">↑</Button>
-            </Box>
-          </Grid>
-        </Grid>
-        {Data.map((elem,index) =>
-          <Grid
-            container
-            key={elem.id}
-            className="table_row"
-          >
-            <Grid item xs={1}>
-              <Box className="table_elem name_elem">{elem.name}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem job_elem">{elem.job}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem city_elem">{elem.city}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem country_elem">{elem.country}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem latitude_elem">{elem.latitude}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem longitude_elem">{elem.longitude}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              {console.log(elem.date === Data[0].date)}
-              <Box className="table_elem date_elem">
-                {`${elem.date.toLocaleString('en', { year: 'numeric', month: 'long', day: 'numeric'})}`}
-              </Box>
-            </Grid>
-          </Grid>
-        )}
-      </Grid>
     </Box>
   )
  };
 }
 
+App.propTypes = {
+  firstData: PropTypes.object.isRequired,
+  secondData: PropTypes.object.isRequired,
+  thirdData: PropTypes.object.isRequired,
+}
+
+
 const mapStateToProps = store => {
   return {
     firstData: store.firstData,
     secondData: store.secondData,
+    thirdData: store.thirdData,
   }
 }
 
