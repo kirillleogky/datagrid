@@ -1,8 +1,8 @@
-import faker from "faker"
+import faker from "faker";
 
 faker.seed(731);
 
-const userFake = (index) => {
+const userFake = index => {
   return {
     id: 2321 + index,
     name: faker.name.findName(),
@@ -11,8 +11,10 @@ const userFake = (index) => {
     city: faker.address.city(),
     latitude: faker.address.latitude(),
     longitude: faker.address.longitude(),
-    date: faker.date.between('1970-01-01', '2000-01-01')
-  }
+    date: faker.date.between("1970-01-01", "2000-01-01")
+  };
 };
 
-export default Array.apply(null, Array(111)).map((elem,index) => userFake(index));
+export default Array.apply(null, Array(111)).map((elem, index) =>
+  userFake(index)
+);

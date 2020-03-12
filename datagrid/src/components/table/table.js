@@ -1,112 +1,107 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid';
-// import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import './table.css';
+import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import "./table.css";
+import { connect } from "react-redux";
+import actions from "../../actions";
+import PropTypes from "prop-types";
+import sort from "./sort";
 
-// function activeSort() {
-//   console.log(this.state.date.isShow);
-// }
-
-// class TableTitle extends React.Component {
-//   constructor(props) {
-//   super(props)
-//   this.state = {
-//
-//    }
-//   }
-//   render () {
-//     return (
-//     )
-//   }
-// }
-
-export default function Table(props) {
-  const data = props.info;
+function TitleColumn(data) {
   return (
-    <Grid
-      container
-      className="developer_block-time_feature time_feature_block"
-    >
+    <Grid item xs={1}>
+      <Box className="title_elem">
+        <h3
+          className="table_title-text"
+          onClick={sort.bind(null, `${data.title.toLowerCase()}`, data.props)}
+        >
+          {data.title}
+        </h3>
+        {data.props.fourthData.data === `${data.title.toLowerCase()}` ? (
+          <p>{data.props.fifthData.data}</p>
+        ) : null}
+      </Box>
+    </Grid>
+  );
+}
+
+class Table extends Component {
+  render() {
+    const data = this.props.info;
+    return (
       <Grid
         container
-        className="table_title"
+        className="developer_block-time_feature time_feature_block"
       >
-        <Grid item xs={1}>
-          <Box className="title_elem">
-            <h3 className="table_title-text" onClick={props.onSort.bind(null, "name")}>Name</h3>
-            {props.sortField === "name" ? <p>{props.arrow}</p> : null}
-          </Box>
+        <Grid container className="table_title">
+          <TitleColumn props={this.props} title="Name" />
+          <TitleColumn props={this.props} title="Job" />
+          <TitleColumn props={this.props} title="City" />
+          <TitleColumn props={this.props} title="Country" />
+          <TitleColumn props={this.props} title="Latitude" />
+          <TitleColumn props={this.props} title="Longitude" />
+          <TitleColumn props={this.props} title="Date" />
         </Grid>
-        <Grid item xs={1}>
-          <Box className="title_elem">
-            <h3 className="table_title-text" onClick={props.onSort.bind(null, "job")}>Job</h3>
-            {props.sortField === "job" ? <p>{props.arrow}</p> : null}
-          </Box>
-        </Grid>
-        <Grid item xs={1}>
-          <Box className="title_elem">
-            <h3 className="table_title-text" onClick={props.onSort.bind(null, "city")}>City</h3>
-            {props.sortField === "city" ? <p>{props.arrow}</p> : null}
-          </Box>
-        </Grid>
-        <Grid item xs={1}>
-          <Box className="title_elem">
-            <h3 className="table_title-text" onClick={props.onSort.bind(null, "country")}>Country</h3>
-            {props.sortField === "country" ? <p>{props.arrow}</p> : null}
-          </Box>
-        </Grid>
-        <Grid item xs={1}>
-          <Box className="title_elem">
-            <h3 className="table_title-text" onClick={props.onSort.bind(null, "latitude")}>Latitude</h3>
-            {props.sortField === "latitude" ? <p>{props.arrow}</p> : null}
-          </Box>
-        </Grid>
-        <Grid item xs={1}>
-          <Box className="title_elem">
-            <h3 className="table_title-text" onClick={props.onSort.bind(null, "longitude")}>Longitude</h3>
-            {props.sortField === "longitude" ? <p>{props.arrow}</p> : null}
-          </Box>
-        </Grid>
-        <Grid item xs={1}>
-          <Box className="title_elem">
-            <h3 className="table_title-text" onClick={props.onSort.bind(null, "date")}>Date</h3>
-            {props.sortField === "date" ? <p>{props.arrow}</p> : null}
-          </Box>
-        </Grid>
+        {data.map((elem, index) => (
+          <Grid container key={elem.id} className="table_row">
+            <Grid item xs={1}>
+              <Box className="table_elem name_elem">{elem.name}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem job_elem">{elem.job}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem city_elem">{elem.city}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem country_elem">{elem.country}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem latitude_elem">{elem.latitude}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem longitude_elem">{elem.longitude}</Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Box className="table_elem date_elem">
+                {`${elem.date.toLocaleString("en", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric"
+                })}`}
+              </Box>
+            </Grid>
+          </Grid>
+        ))}
       </Grid>
-      {data.map((elem,index) =>
-        <Grid
-          container
-          key={elem.id}
-          className="table_row"
-        >
-          <Grid item xs={1}>
-            <Box className="table_elem name_elem">{elem.name}</Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="table_elem job_elem">{elem.job}</Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="table_elem city_elem">{elem.city}</Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="table_elem country_elem">{elem.country}</Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="table_elem latitude_elem">{elem.latitude}</Box>
-          </Grid>
-          <Grid item xs={1}>
-            <Box className="table_elem longitude_elem">{elem.longitude}</Box>
-          </Grid>
-          <Grid item xs={1}>
-            {console.log(elem.date === data[0].date)}
-            <Box className="table_elem date_elem">
-              {`${elem.date.toLocaleString('en', { year: 'numeric', month: 'long', day: 'numeric'})}`}
-            </Box>
-          </Grid>
-        </Grid>
-      )}
-    </Grid>
-  )
+    );
+  }
 }
+
+Table.propTypes = {
+  fourthData: PropTypes.object.isRequired,
+  fifthData: PropTypes.object.isRequired
+};
+
+const mapStateToProps = store => {
+  return {
+    firstData: store.firstData,
+    secondData: store.secondData,
+    thirdData: store.thirdData,
+    fourthData: store.fourthData,
+    fifthData: store.fifthData
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setData: data => dispatch(actions.setData(data)),
+    changeSearchData: searchData =>
+      dispatch(actions.changeSearchData(searchData)),
+    changeSort: sort => dispatch(actions.changeSort(sort)),
+    setSortTitle: sortField => dispatch(actions.setSortTitle(sortField)),
+    changeArrow: arrow => dispatch(actions.changeArrow(arrow))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
