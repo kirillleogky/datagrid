@@ -24,3 +24,11 @@
   font-weight: 100;
   margin-bottom: 3%;
 }
+
+.virtualization_btn {
+  margin: 5% !important;
+}
+
+.virtualization_btn-active {
+  background: linear-gradient(79deg, rgba(255,4,62,0.5032387955182073) 15%, rgba(134,0,255,0.500437675070028) 100%);
+}

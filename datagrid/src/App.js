@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Search from "./components/search/search";
@@ -52,6 +53,21 @@ class App extends Component {
         </h3>
         <h3 className="title-info">To sort, click on the title.</h3>
         <Search />
+        <Button
+          variant="outlined"
+          className="virtualization_btn"
+          onClick={(event) => {
+            if(event.currentTarget.classList.contains("virtualization_btn-active")) {
+              event.currentTarget.classList.remove("virtualization_btn-active");
+              this.props.changeVirtualization(false);
+            } else {
+              event.currentTarget.classList.add("virtualization_btn-active");
+              this.props.changeVirtualization(true);
+            }
+          }}
+        >
+          Do not use virtualization
+        </Button>
         <Table info={this.getFilteredData()} />
       </Box>
     );
@@ -63,7 +79,8 @@ App.propTypes = {
   secondData: PropTypes.object.isRequired,
   thirdData: PropTypes.object.isRequired,
   fourthData: PropTypes.object.isRequired,
-  fifthData: PropTypes.object.isRequired
+  fifthData: PropTypes.object.isRequired,
+  sixthData: PropTypes.object.isRequired
 };
 
 const mapStateToProps = store => {
@@ -72,7 +89,8 @@ const mapStateToProps = store => {
     secondData: store.secondData,
     thirdData: store.thirdData,
     fourthData: store.fourthData,
-    fifthData: store.fifthData
+    fifthData: store.fifthData,
+    sixthData: store.sixthData
   };
 };
 
@@ -83,7 +101,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.changeSearchData(searchData)),
     changeSort: sort => dispatch(actions.changeSort(sort)),
     setSortTitle: sortField => dispatch(actions.setSortTitle(sortField)),
-    changeArrow: arrow => dispatch(actions.changeArrow(arrow))
+    changeArrow: arrow => dispatch(actions.changeArrow(arrow)),
+    changeVirtualization: virt => dispatch(actions.changeVirtualization(virt))
   };
 };
 

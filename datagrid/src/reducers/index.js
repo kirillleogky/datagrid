@@ -17,6 +17,10 @@ let arrow = {
   data: ''
 }
 
+let virtualization = {
+  data: false
+}
+
 function firstData(state = search, action) {
   switch (action.type) {
     case 'CHANGE_SEARCH_DATA':
@@ -67,4 +71,14 @@ function fifthData(state = arrow, action) {
   }
 }
 
-export default {firstData, secondData, thirdData, fourthData, fifthData};
+function sixthData(state = virtualization, action) {
+  switch (action.type) {
+    case 'CHANGE_VIRTUALIZATION':
+      return { ...state, data: action.payload }
+
+    default:
+      return state
+  }
+}
+
+export default {firstData, secondData, thirdData, fourthData, fifthData, sixthData};

@@ -4,6 +4,7 @@ const actions = {
     changeSort: (sort) => ({type: 'CHANGE_SORT', payload: sort}),
     setSortTitle: (sortField) => ({type: 'SET_SORT_TITLE', payload: sortField}),
     changeArrow: (arrow) => ({type: 'CHANGE_ARROW', payload: arrow}),
+    changeVirtualization: (virt) => ({type: 'CHANGE_VIRTUALIZATION', payload: virt}),
   }
 ;
 

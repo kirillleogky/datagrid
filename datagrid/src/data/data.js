@@ -15,6 +15,6 @@ const userFake = index => {
   };
 };
 
-export default Array.apply(null, Array(1111)).map((elem, index) =>
+export default Array.apply(null, Array(111)).map((elem, index) =>
   userFake(index)
 );

@@ -19,6 +19,7 @@
   font-weight: 100;
   background: linear-gradient(79deg, rgba(255,4,62,0.5032387955182073) 15%, rgba(134,0,255,0.500437675070028) 100%);
   margin-bottom: 5px;
+  font-size: 0.9rem;
 }
 
 .table_elem,
@@ -44,4 +45,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+.country_elem {
+  width: 150%;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }

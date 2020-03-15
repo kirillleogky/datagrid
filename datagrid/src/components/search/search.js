@@ -13,7 +13,7 @@ class Search extends Component {
       <React.Fragment>
         <TextField
           id="filled-full-width"
-          placeholder="Search by name"
+          placeholder="Search by name, job, city, country, latitude, longitude, date"
           InputLabelProps={{
             shrink: true
           }}
@@ -26,7 +26,7 @@ class Search extends Component {
           variant="outlined"
           onClick={() => this.props.changeSearchData(searchInput)}
         >
-          Default
+          Search
         </Button>
       </React.Fragment>
     );
