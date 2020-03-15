@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import actions from "../../actions";
 import PropTypes from "prop-types";
 import sort from "./sort";
+import { FixedSizeList } from 'react-window';
 
 function TitleColumn(data) {
   return (
@@ -25,55 +26,66 @@ function TitleColumn(data) {
   );
 }
 
+
 class Table extends Component {
   render() {
     const data = this.props.info;
-    return (
-      <Grid
-        container
-        className="developer_block-time_feature time_feature_block"
-      >
-        <Grid container className="table_title">
-          <TitleColumn props={this.props} title="Name" />
-          <TitleColumn props={this.props} title="Job" />
-          <TitleColumn props={this.props} title="City" />
-          <TitleColumn props={this.props} title="Country" />
-          <TitleColumn props={this.props} title="Latitude" />
-          <TitleColumn props={this.props} title="Longitude" />
-          <TitleColumn props={this.props} title="Date" />
-        </Grid>
-        {data.map((elem, index) => (
-          <Grid container key={elem.id} className="table_row">
-            <Grid item xs={1}>
-              <Box className="table_elem name_elem">{elem.name}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem job_elem">{elem.job}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem city_elem">{elem.city}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem country_elem">{elem.country}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem latitude_elem">{elem.latitude}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem longitude_elem">{elem.longitude}</Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Box className="table_elem date_elem">
-                {`${elem.date.toLocaleString("en", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric"
-                })}`}
-              </Box>
-            </Grid>
+    const Row = ({ index, style}) => {
+      return (
+        <Grid container className="table_row" style={style}>
+          <Grid item xs={1}>
+            <Box className="table_elem name_elem">{data[index].name}</Box>
           </Grid>
-        ))}
-      </Grid>
+          <Grid item xs={1}>
+            <Box className="table_elem job_elem">{data[index].job}</Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="table_elem city_elem">{data[index].city}</Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="table_elem country_elem">{data[index].country}</Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="table_elem latitude_elem">{data[index].latitude}</Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="table_elem longitude_elem">{data[index].longitude}</Box>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className="table_elem date_elem">
+              {`${data[index].date.toLocaleString("en", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          })}`}
+            </Box>
+          </Grid>
+        </Grid>
+      )
+    };
+    return (
+        <Grid
+          container
+          className="developer_block-time_feature time_feature_block"
+        >
+          <Grid container className="table_title">
+            <TitleColumn props={this.props} title="Name" />
+            <TitleColumn props={this.props} title="Job" />
+            <TitleColumn props={this.props} title="City" />
+            <TitleColumn props={this.props} title="Country" />
+            <TitleColumn props={this.props} title="Latitude" />
+            <TitleColumn props={this.props} title="Longitude" />
+            <TitleColumn props={this.props} title="Date" />
+          </Grid>
+          <FixedSizeList
+            height={500}
+            itemSize={60}
+            itemCount={data.length}
+            className="list-container"
+          >
+            {Row}
+          </FixedSizeList>
+        </Grid>
     );
   }
 }
