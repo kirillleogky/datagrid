@@ -52,12 +52,20 @@ class App extends Component {
           all the data.
         </h3>
         <h3 className="title-info">To sort, click on the title.</h3>
+        <h3 className="title-info">
+          When you click on a line, data on a current line is saved to the
+          clipboard.
+        </h3>
         <Search />
         <Button
           variant="outlined"
           className="virtualization_btn"
-          onClick={(event) => {
-            if(event.currentTarget.classList.contains("virtualization_btn-active")) {
+          onClick={event => {
+            if (
+              event.currentTarget.classList.contains(
+                "virtualization_btn-active"
+              )
+            ) {
               event.currentTarget.classList.remove("virtualization_btn-active");
               this.props.changeVirtualization(false);
             } else {
