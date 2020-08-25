@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "Helvetica";
+  src: url('./assets/fonts/Helvetica.otf') format('otf');
+}
+
+#root {
+  padding: 20px;
+  background: linear-gradient(79deg, rgba(0,27,166,1) 0%, rgba(0,247,255,1) 100%);
+}
+
+.App {
+  text-align: center;
+}
+
+.title {
+  font-family: "Helvetica", "Arial", "sans-serif";
+  font-weight: 900;
+  font-size: 2rem;
+  margin-bottom: 3%;
+}
+
+.title-info {
+  font-family: "Helvetica", "Arial", "sans-serif";
+  font-weight: 100;
+  margin-bottom: 3%;
+}
+
+.virtualization_btn {
+  margin: 5% !important;
+}
+
+.virtualization_btn-active {
+  background: linear-gradient(79deg, rgba(255,4,62,0.5032387955182073) 15%, rgba(134,0,255,0.500437675070028) 100%);
+}
